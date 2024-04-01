@@ -3,7 +3,7 @@ version: "0.1"
 services:
   arrowhead-database:
     extends:
-      file: arrowhead-core\docker-compose.yaml
+      file: arrowhead-core/docker-compose.yaml
       service: arrowhead-database
     
   arrowhead-serviceregistry:
