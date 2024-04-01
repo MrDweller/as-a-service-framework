@@ -1,0 +1,6 @@
+[submodule "work-handler"]
+	path = work-handler
+	url = https://github.com/MrDweller/work-handler.git
+[submodule "arrowhead-core"]
+	path = arrowhead-core
+	url = https://github.com/MrDweller/arrowhead-core.git
