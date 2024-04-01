@@ -4,3 +4,6 @@
 [submodule "arrowhead-core"]
 	path = arrowhead-core
 	url = https://github.com/MrDweller/arrowhead-core.git
+[submodule "digital-twin-hub"]
+	path = digital-twin-hub
+	url = https://github.com/MrDweller/digital-twin-hub.git

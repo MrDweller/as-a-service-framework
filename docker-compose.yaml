@@ -5,6 +5,17 @@ services:
     extends:
       file: arrowhead-core/docker-compose.yaml
       service: arrowhead-database
+
+  serviceregistry-healthcheck:
+    container_name: serviceregistry-healthcheck
+    build: 
+      context: serviceregistry-healthcheck
+      dockerfile: Dockerfile
+    environment:
+      CERT_FILE_PATH: ./certificates/sysop-cert.pem
+      KEY_FILE_PATH: ./certificates/sysop-key.pem
+    env_file:
+      - .env
     
   arrowhead-serviceregistry:
     container_name: arrowhead-serviceregistry
@@ -53,10 +64,22 @@ services:
       context: work-handler
       dockerfile: ../work-handler.Dockerfile
     depends_on:
-      arrowhead-serviceregistry:
-        condition: service_started
+      serviceregistry-healthcheck:
+        condition: service_completed_successfully
+
+  digital-twin-hub:
+    container_name: digital-twin-hub
+    ports:
+      - "8080:8080"
+    build: 
+      context: digital-twin-hub
+      dockerfile: ../digital-twin-hub.Dockerfile
+    depends_on:
+      serviceregistry-healthcheck:
+        condition: service_completed_successfully
 
   mongodb:
+    container_name: mongodb
     image: mongo:latest
     ports:
       - "30000:27017"
