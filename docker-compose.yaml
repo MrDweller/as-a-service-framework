@@ -52,6 +52,9 @@ services:
     build: 
       context: work-handler
       dockerfile: ../work-handler.Dockerfile
+    depends_on:
+      arrowhead-serviceregistry:
+        condition: service_completed_successfully
 
   mongodb:
     image: mongo:latest
