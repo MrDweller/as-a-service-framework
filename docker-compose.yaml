@@ -91,6 +91,12 @@ services:
       - ./certificates:/app/certificates
       - ./.enviroment.digital-twin-hub.env:/app/.env
 
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.12.12
+    ports:
+      - "30001:5672"
+
   mongodb:
     container_name: mongodb
     image: mongo:latest
