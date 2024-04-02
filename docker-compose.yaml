@@ -104,6 +104,51 @@ services:
       - "30000:27017"
     volumes:
       - mongo-data:/data/db
+
+  spark-master:
+    build: 
+      context: apache-spark
+      dockerfile: Dockerfile
+    container_name: spark-master
+    command: bin/spark-class org.apache.spark.deploy.master.Master
+    env_file:
+      - .env
+      - .enviroment.apache-spark.env
+    ports:
+      - "9090:8080"
+      - "7077:7077"
+    volumes:
+      - ./apache-spark/applications:/opt/bitnami/spark/applications
+      - ./apache-spark/data:/opt/bitnami/spark/data
+      - ./certificates:/opt/bitnami/spark/applications/certificates
+
+  spark-worker:
+    build: 
+      context: apache-spark
+      dockerfile: Dockerfile
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    depends_on:
+      - spark-master
+    environment:
+      SPARK_MODE: worker
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 2g
+      SPARK_MASTER_URL: spark://spark-master:7077
+    deploy:
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 10s
+    env_file:
+      - .env
+      - .enviroment.apache-spark.env
+    volumes:
+      - ./apache-spark/data:/opt/bitnami/spark/data
+      - ./certificates:/opt/bitnami/spark/applications/certificates
+    
   
 volumes:
   arrowhead-database:
