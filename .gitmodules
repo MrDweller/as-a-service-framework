@@ -10,3 +10,6 @@
 [submodule "apache-spark"]
 	path = apache-spark
 	url = https://github.com/MrDweller/apache-spark.git
+[submodule "technician"]
+	path = technician
+	url = https://github.com/MrDweller/technician.git

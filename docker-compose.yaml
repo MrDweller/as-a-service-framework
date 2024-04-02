@@ -91,6 +91,42 @@ services:
       - ./certificates:/app/certificates
       - ./.enviroment.digital-twin-hub.env:/app/.env
 
+  technician-1:
+    container_name: technician-1
+    build: 
+      context: technician
+      dockerfile: ../technician.Dockerfile
+    stdin_open: true
+    tty: true
+    ports:
+      - "6001:6001"
+    depends_on:
+      serviceregistry-healthcheck:
+        condition: service_completed_successfully
+    env_file:
+      - .env
+    volumes:
+      - ./certificates:/app/certificates
+      - ./.enviroment.technician-1.env:/app/.env
+
+  technician-2:
+    container_name: technician-2
+    build: 
+      context: technician
+      dockerfile: ../technician.Dockerfile
+    stdin_open: true
+    tty: true
+    ports:
+      - "6002:6002"
+    depends_on:
+      serviceregistry-healthcheck:
+        condition: service_completed_successfully
+    env_file:
+      - .env
+    volumes:
+      - ./certificates:/app/certificates
+      - ./.enviroment.technician-2.env:/app/.env
+
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:3.12.12
