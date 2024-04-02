@@ -18,7 +18,7 @@ if __name__ == "__main__":
     print("Waiting for external resource to be available...")
 
     amount_retried = 0
-    while not check_external_resource(os.environ['SERVICEREGISTRY_ADDRESS'], os.environ['SERVICEREGISTRY_PORT'], os.environ['CERT_FILE_PATH'], os.environ['KEY_FILE_PATH']):
+    while not check_external_resource(os.environ['SERVICE_REGISTRY_ADDRESS'], os.environ['SERVICE_REGISTRY_PORT'], os.environ['CERT_FILE_PATH'], os.environ['KEY_FILE_PATH']):
         print(f"Serviceregistry is unavailable, retrying in {RETRY_TIME_SECONDS}s")
 
         amount_retried += 1
