@@ -136,6 +136,9 @@ services:
   mongodb:
     container_name: mongodb
     image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     ports:
       - "30000:27017"
     volumes:
