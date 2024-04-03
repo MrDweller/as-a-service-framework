@@ -10,12 +10,27 @@ services:
     container_name: serviceregistry-healthcheck
     build: 
       context: serviceregistry-healthcheck
-      dockerfile: Dockerfile
+      dockerfile: ../health-check.Dockerfile
     environment:
       CERT_FILE_PATH: ./certificates/sysop-cert.pem
       KEY_FILE_PATH: ./certificates/sysop-key.pem
     env_file:
       - .env
+    volumes:
+      - ./certificates:/app/certificates
+
+  orchestrator-healthcheck:
+    container_name: orchestrator-healthcheck
+    build: 
+      context: orchestrator-healthcheck
+      dockerfile: ../health-check.Dockerfile
+    environment:
+      CERT_FILE_PATH: ./certificates/sysop-cert.pem
+      KEY_FILE_PATH: ./certificates/sysop-key.pem
+    env_file:
+      - .env
+    volumes:
+      - ./certificates:/app/certificates
     
   arrowhead-serviceregistry:
     container_name: arrowhead-serviceregistry
@@ -103,6 +118,8 @@ services:
     depends_on:
       serviceregistry-healthcheck:
         condition: service_completed_successfully
+      orchestrator-healthcheck:
+        condition: service_completed_successfully
     env_file:
       - .env
     volumes:
@@ -120,6 +137,8 @@ services:
       - "6002:6002"
     depends_on:
       serviceregistry-healthcheck:
+        condition: service_completed_successfully
+      orchestrator-healthcheck:
         condition: service_completed_successfully
     env_file:
       - .env

@@ -7,5 +7,5 @@ RUN pip install requests
 
 COPY . .
 
-CMD ["python", "health_check.py"]
+CMD ["python", "-u", "health_check.py"]
 
