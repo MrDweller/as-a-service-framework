@@ -7,9 +7,9 @@
 [submodule "digital-twin-hub"]
 	path = digital-twin-hub
 	url = https://github.com/MrDweller/digital-twin-hub.git
-[submodule "apache-spark"]
-	path = apache-spark
-	url = https://github.com/MrDweller/apache-spark.git
 [submodule "technician"]
 	path = technician
 	url = https://github.com/MrDweller/technician.git
+[submodule "apache-spark"]
+	path = apache-spark
+	url = https://github.com/MrDweller/apache-spark.git

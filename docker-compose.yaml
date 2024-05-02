@@ -5,6 +5,8 @@ services:
     extends:
       file: arrowhead-core/docker-compose.yaml
       service: arrowhead-database
+    networks: 
+        - as-a-service-framework-network
 
   serviceregistry-healthcheck:
     container_name: serviceregistry-healthcheck
@@ -18,6 +20,8 @@ services:
       - .env
     volumes:
       - ./certificates:/app/certificates
+    networks: 
+        - as-a-service-framework-network
 
   orchestrator-healthcheck:
     container_name: orchestrator-healthcheck
@@ -31,6 +35,8 @@ services:
       - .env
     volumes:
       - ./certificates:/app/certificates
+    networks: 
+        - as-a-service-framework-network
     
   arrowhead-serviceregistry:
     container_name: arrowhead-serviceregistry
@@ -45,6 +51,8 @@ services:
       - ./certificates/serviceregistry.p12:/opt/arrowhead/certificates/serviceregistry.p12
     ports:
       - 8443:8443
+    networks: 
+        - as-a-service-framework-network
   
   arrowhead-authorization:
     container_name: arrowhead-authorization
@@ -59,6 +67,8 @@ services:
       - ./certificates/authorization.p12:/opt/arrowhead/certificates/authorization.p12
     ports:
       - 8445:8445
+    networks: 
+        - as-a-service-framework-network
       
   arrowhead-orchestrator:
     container_name: arrowhead-orchestrator
@@ -73,6 +83,8 @@ services:
       - ./certificates/orchestrator.p12:/opt/arrowhead/certificates/orchestrator.p12
     ports:
       - 8441:8441
+    networks: 
+        - as-a-service-framework-network
 
   work-handler:
     container_name: work-handler
@@ -89,6 +101,8 @@ services:
     volumes:
       - ./certificates:/app/certificates
       - ./.enviroment.work-handler.env:/app/.env
+    networks: 
+        - as-a-service-framework-network
 
   digital-twin-hub:
     container_name: digital-twin-hub
@@ -105,6 +119,8 @@ services:
     volumes:
       - ./certificates:/app/certificates
       - ./.enviroment.digital-twin-hub.env:/app/.env
+    networks: 
+        - as-a-service-framework-network
 
   technician-1:
     container_name: technician-1
@@ -125,6 +141,8 @@ services:
     volumes:
       - ./certificates:/app/certificates
       - ./.enviroment.technician-1.env:/app/.env
+    networks: 
+        - as-a-service-framework-network
 
   technician-2:
     container_name: technician-2
@@ -145,12 +163,16 @@ services:
     volumes:
       - ./certificates:/app/certificates
       - ./.enviroment.technician-2.env:/app/.env
+    networks: 
+        - as-a-service-framework-network
 
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:3.12.12
     ports:
       - "30001:5672"
+    networks: 
+        - as-a-service-framework-network
 
   mongodb:
     container_name: mongodb
@@ -162,6 +184,8 @@ services:
       - "30000:27017"
     volumes:
       - mongo-data:/data/db
+    networks: 
+        - as-a-service-framework-network
 
   spark-master:
     build: 
@@ -179,6 +203,8 @@ services:
       - ./apache-spark/applications:/opt/bitnami/spark/applications
       - ./apache-spark/data:/opt/bitnami/spark/data
       - ./certificates:/opt/bitnami/spark/applications/certificates
+    networks: 
+        - as-a-service-framework-network
 
   spark-worker:
     build: 
@@ -206,8 +232,13 @@ services:
     volumes:
       - ./apache-spark/data:/opt/bitnami/spark/data
       - ./certificates:/opt/bitnami/spark/applications/certificates
+    networks: 
+        - as-a-service-framework-network
     
-  
+networks:
+  as-a-service-framework-network:
+    name: as-a-service-framework-network
+
 volumes:
   arrowhead-database:
   mongo-data:
