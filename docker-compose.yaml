@@ -108,6 +108,8 @@ services:
     container_name: digital-twin-hub
     ports:
       - "8080:8080"
+      - "40000-40050:40000-40050"
+
     build: 
       context: digital-twin-hub
       dockerfile: ../digital-twin-hub.Dockerfile
