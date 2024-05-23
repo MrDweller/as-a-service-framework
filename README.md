@@ -25,6 +25,8 @@ Clone this repository and clone all submodules. This could be done by recursive 
 git clone --recurse-submodules <repository-url>
 ```
 
+**NOTE:** you do **NOT** need to follow all requirements and setup presented in the **SUB MODULES**, this repository handles all requirements and setup.
+
 ## Start
 Then start the as-a-service-framework by executing,
 ``` 
