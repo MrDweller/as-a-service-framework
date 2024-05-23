@@ -85,6 +85,12 @@ This configuration will have the technicians requesting to be assigned to a work
 An example of these authorization rules with one prediction application `anomaly-detector-decision-tree`, one digital twin `mower-1` and one event `stuck`, would look like the following,  
 ![image](https://github.com/MrDweller/as-a-service-framework/assets/61691900/43ba7f1f-a8f4-4185-888d-bcc871fee19e)
 
+After all authorization and orchestrator rules are setup, attach to each technician and subscribe to the events, 
+
+```
+docker attach 
+```
+
 ### Web portal
 If it is desired to use the web portal [web-portal](https://github.com/MrDweller/as-a-service-framework-web-portal), then use the same configuration as *Data sharing only*, except change the technicians `.env` files with,
 
@@ -98,5 +104,4 @@ This configuration will have the technicians forwarding the event to the endpoin
 
 ### SLA system
 Using the SLA system [fabric-network](https://github.com/nalle631/fabric-network), configure the systems the same way as in *Data sharing only* except do NOT add authorization rules from the technicians to the work handlers `assign-worker` service. Instead add authorization for the technician systems that is registerd by the SLA system, to the work handlers `assign-worker` service, this also requires orchestration rules. Also, add authorization rules between this repository's technician systems to the SLA's technician systems over `assign-worker`. This is so that this repository's technician systems asks the SLA systems to be assigned the work task instead of directly to the work handler. 
-
 
