@@ -33,7 +33,7 @@ Then start the as-a-service-framework by executing,
 docker-compose up -d --build
 ```
 
-The framework automatically starts the `digital-twin-hub`, `work-handler` and two `technicians`. 
+The framework automatically starts the `digital-twin-hub`, `work-handler`, two `technicians` and an apache spark cluster with one master and two worker nodes. 
 
 ### Digital Twin
  
