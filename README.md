@@ -88,7 +88,19 @@ An example of these authorization rules with one prediction application `anomaly
 After all authorization and orchestrator rules are setup, attach to each technician and subscribe to the events, 
 
 ```
-docker attach 
+docker attach technician-1
+```
+
+or/and
+
+```
+docker attach technician-2
+```
+
+run,
+
+```
+subscribe <event>
 ```
 
 ### Web portal
@@ -105,3 +117,6 @@ This configuration will have the technicians forwarding the event to the endpoin
 ### SLA system
 Using the SLA system [fabric-network](https://github.com/nalle631/fabric-network), configure the systems the same way as in *Data sharing only* except do NOT add authorization rules from the technicians to the work handlers `assign-worker` service. Instead add authorization for the technician systems that is registerd by the SLA system, to the work handlers `assign-worker` service, this also requires orchestration rules. Also, add authorization rules between this repository's technician systems to the SLA's technician systems over `assign-worker`. This is so that this repository's technician systems asks the SLA systems to be assigned the work task instead of directly to the work handler. 
 
+## Trigger events
+In order to get the analytics to trigger an event, you could simply copy an event data point that is found `apache-spark/data/mower`, and place it at `apache-spark/data/stream/mower/`.
+This assumes that an spark application is running. If the running spark application is `predict_mower_decision_tree_stream.py` use the data point in `apache-spark/data/stream/mower/`. If instead `predict_mower_error_codes.py` is used, then use the data point in `apache-spark/data/stream/mower/error_codes` 
