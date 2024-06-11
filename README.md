@@ -74,7 +74,7 @@ Choose the desired prediction application and enter it instead of `<prediction_s
 This configuration is for setting up the framework with no additional systems, other than the ones in this repository.  
 
 #### Technician configuration
-Change the technicians `.env` files with,
+Change the technicians environment files `.enviroment.technician-1.env` and `.enviroment.technician-2.env`,
 
 ```
 EVENT_HANDLING_SYSTEM_TYPE="DIRECT_EVENT_HANDLING"
