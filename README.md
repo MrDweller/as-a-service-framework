@@ -25,6 +25,16 @@ Clone this repository and clone all submodules. This could be done by recursive 
 git clone --recurse-submodules <repository-url>
 ```
 
+Edit your hosts file, found at `c:\Windows\System32\Drivers\etc\hosts` on windows and `/etc/hosts` on linux. Add the following to the host file, 
+
+```
+<system-ip> arrowhead-serviceregistry
+<system-ip> arrowhead-authorization
+<system-ip> arrowhead-orchestrator
+<system-ip> event-handler
+```
+Replace `<system-ip>` with the ip of the system machine that you are running the system on.
+
 **NOTE:** you do **NOT** need to follow all requirements and setup presented in the **SUB MODULES**, this repository handles all requirements and setup.
 
 ## Start
@@ -63,7 +73,7 @@ Choose the desired prediction application and enter it instead of `<prediction_s
 ### Data sharing only
 This configuration is for setting up the framework with no additional systems, other than the ones in this repository.  
 
-### Technician configuration
+#### Technician configuration
 Change the technicians `.env` files with,
 
 ```
@@ -72,7 +82,7 @@ EVENT_HANDLING_SYSTEM_TYPE="DIRECT_EVENT_HANDLING"
 
 This configuration will have the technicians requesting to be assigned to a work task automatically.  
 
-### Authorization and orchestrator rules
+#### Authorization and orchestrator rules
 * Apache Spark application
   * Authorize the application for all digital twin notify services that it should send notification of events for.
   * Add orcheastration rule for all digital twin notify services that it should send notification of events for.
@@ -106,7 +116,7 @@ subscribe <event>
 ```
 
 ### Web portal
-If it is desired to use the web portal [web-portal](https://github.com/MrDweller/as-a-service-framework-web-portal), then use the same configuration as *Data sharing only*, except change the technicians `.env` files with,
+If it is desired to use the web portal [web-portal](https://github.com/MrDweller/as-a-service-framework-web-portal), then use the same configuration as *Data sharing only*, except change the technicians environment files `.enviroment.technician-1.env` and `.enviroment.technician-2.env`,
 
 ```
 EVENT_HANDLING_SYSTEM_TYPE="USER_INTERACTIVE_EVENT_HANDLING"
@@ -114,6 +124,8 @@ EXTERNAL_ENDPOINT_URL="http://web-portal/serviceprovider/work-task"
 ```
 
 This configuration will have the technicians forwarding the event to the endpoint *"http://web-portal/serviceprovider/work-task"*, and waiting to be given a take task command from the web portal, before requesting to be assigned to a work task.  
+
+Also if it is desired to get notifications for customers in the web-portal, setup the [notification-adapter](https://github.com/MrDweller/notifications-adapter) system. Certificates for the `notifications-adapter` system can be found in the `./certificates` directory. 
 
 
 ### SLA system
